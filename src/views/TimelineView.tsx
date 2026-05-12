@@ -1,7 +1,6 @@
 import { useMemo } from "react";
 import type { Book } from "../types/book";
 import { BookSpine } from "../components/BookSpine";
-import { flagFor } from "../utils/countries";
 import type { TimelineAxis } from "./TimelineHeader";
 
 interface TimelineViewProps {
@@ -70,11 +69,6 @@ export function TimelineView({
           {rows.map((row) => (
             <div className="timeline__row" key={row.key}>
               <div className="timeline__row-label">
-                {axis === "country" && (
-                  <span className="timeline__flag" aria-hidden="true">
-                    {flagFor(row.key)}
-                  </span>
-                )}
                 <span className="timeline__row-name">{row.key}</span>
                 <span className="timeline__row-count">{row.items.length}</span>
               </div>

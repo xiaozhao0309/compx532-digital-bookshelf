@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from "react";
 import type { Book } from "../types/book";
 import { READING_STATUS_LABEL } from "../types/book";
-import { colorForCountry, flagFor } from "../utils/countries";
+import { colorForCountry } from "../utils/countries";
 import { decadeLabel } from "../utils/grouping";
 import { StarRating } from "./StarRating";
 
@@ -62,7 +62,6 @@ export function BookDetailDrawer({
   if (!book) return null;
 
   const heroColor = colorForCountry(book.country);
-  const flag = flagFor(book.country);
   const progress =
     book.totalPages && book.totalPages > 0
       ? Math.min(100, Math.round(((book.currentPage ?? 0) / book.totalPages) * 100))
@@ -120,9 +119,7 @@ export function BookDetailDrawer({
             </button>
           </div>
 
-          <span className="drawer__flag" aria-hidden="true">
-            {flag}
-          </span>
+          <span className="drawer__country-tag">{book.country || "Unknown"}</span>
           <span className="drawer__category-chip">
             {book.category || "Uncategorized"}
           </span>

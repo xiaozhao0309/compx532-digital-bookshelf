@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import type { Book } from "../types/book";
 import { BookSpine } from "../components/BookSpine";
-import { flagFor, regionFor, REGION_ORDER } from "../utils/countries";
+import { regionFor, REGION_ORDER } from "../utils/countries";
 
 interface WorldViewProps {
   books: Book[];
@@ -95,9 +95,6 @@ export function WorldView({
               {r.countries.map((c) => (
                 <article className="country-card" key={c.country}>
                   <header className="country-card__head">
-                    <span className="country-card__flag" aria-hidden="true">
-                      {flagFor(c.country)}
-                    </span>
                     <div>
                       <h4 className="country-card__name">{c.country}</h4>
                       <span className="country-card__count">

@@ -2377,11 +2377,14 @@
   transform: scale(0.94);
 }
 
-.drawer__flag {
-  display: block;
-  font-size: 2.6rem;
-  margin-bottom: 6px;
-  line-height: 1;
+.drawer__country-tag {
+  display: inline-block;
+  font-size: 0.74rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 12px;
+  opacity: 0.88;
 }
 
 .drawer__category-chip {
