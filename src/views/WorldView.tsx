@@ -43,8 +43,8 @@ export function WorldView({
       const arr = byRegion.get(region) ?? [];
       arr.push({
         country,
-        books: [...items].sort(
-          (a, b) => (b.publicationYear ?? 0) - (a.publicationYear ?? 0),
+        books: [...items].sort((a, b) =>
+          a.title.localeCompare(b.title, "zh-Hans-CN"),
         ),
       });
       byRegion.set(region, arr);

@@ -23,8 +23,8 @@ export function spineHeight(
 }
 
 export function spineWidth(totalPages?: number): number {
-  if (!totalPages || totalPages <= 0) return 36;
-  return Math.round(26 + Math.min(totalPages / 30, 22));
+  if (!totalPages || totalPages <= 0) return 48;
+  return Math.round(38 + Math.min(totalPages / 30, 26));
 }
 
 export function spineColor(country: string): string {

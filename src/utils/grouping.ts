@@ -44,11 +44,9 @@ export function groupBooks(books: Book[], by: GroupKey): BookGroup[] {
     key,
     label: groupLabel(key, by),
     sublabel: `${items.length} 本`,
-    books: [...items].sort((a, b) => {
-      const yearDiff = (b.publicationYear ?? 0) - (a.publicationYear ?? 0);
-      if (yearDiff !== 0) return yearDiff;
-      return a.title.localeCompare(b.title, "zh-Hans-CN");
-    }),
+    books: [...items].sort((a, b) =>
+      a.title.localeCompare(b.title, "zh-Hans-CN"),
+    ),
   }));
 
   if (by === "decade") {

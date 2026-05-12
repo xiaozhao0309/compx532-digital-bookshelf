@@ -1,12 +1,12 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import type { Book } from "../types/book";
 import { BookSpine } from "../components/BookSpine";
 import { flagFor } from "../utils/countries";
-
-type Axis = "country" | "category";
+import type { TimelineAxis } from "./TimelineHeader";
 
 interface TimelineViewProps {
   books: Book[];
+  axis: TimelineAxis;
   visibleIds: Set<string>;
   selectedId: string | null;
   onSelectBook: (book: Book) => void;
@@ -15,13 +15,12 @@ interface TimelineViewProps {
 
 export function TimelineView({
   books,
+  axis,
   visibleIds,
   selectedId,
   onSelectBook,
   yearRange,
 }: TimelineViewProps) {
-  const [axis, setAxis] = useState<Axis>("country");
-
   const { rows, ticks, decadeMin, decadeMax } = useMemo(() => {
     const dated = books.filter(
       (b): b is Book => typeof b.publicationYear === "number",
@@ -55,37 +54,10 @@ export function TimelineView({
 
   const undatedCount = books.filter((b) => !b.publicationYear).length;
   const span = decadeMax - decadeMin || 1;
-
   const posOf = (year: number) => ((year - decadeMin) / span) * 100;
 
   return (
     <div className="view view--timeline">
-      <header className="view__head">
-        <div>
-          <h2>Publication Timeline</h2>
-          <p>
-            横轴为出版年代（{decadeMin}–{decadeMax}）；每行为一个
-            {axis === "country" ? "国家" : "类别"}。
-          </p>
-        </div>
-        <div className="view__axis-toggle" role="tablist" aria-label="时间线 Y 轴">
-          <button
-            type="button"
-            className={`pill ${axis === "country" ? "pill--active" : ""}`}
-            onClick={() => setAxis("country")}
-          >
-            按国家
-          </button>
-          <button
-            type="button"
-            className={`pill ${axis === "category" ? "pill--active" : ""}`}
-            onClick={() => setAxis("category")}
-          >
-            按类别
-          </button>
-        </div>
-      </header>
-
       <div className="timeline">
         <div className="timeline__rows">
           {rows.length === 0 && (
@@ -130,18 +102,6 @@ export function TimelineView({
                 ))}
               </div>
             </div>
-          ))}
-        </div>
-
-        <div className="timeline__axis" aria-hidden="true">
-          {ticks.map((y) => (
-            <span
-              key={y}
-              className="timeline__tick"
-              style={{ left: `${posOf(y)}%` }}
-            >
-              {y}
-            </span>
           ))}
         </div>
 

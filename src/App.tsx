@@ -15,6 +15,7 @@ import {
 } from "./components/ShelfControls";
 import { BookshelfView } from "./views/BookshelfView";
 import { TimelineView } from "./views/TimelineView";
+import { TimelineHeader, type TimelineAxis } from "./views/TimelineHeader";
 import { StatisticsView } from "./views/StatisticsView";
 import { WorldView } from "./views/WorldView";
 import { type GroupKey, decadeLabel } from "./utils/grouping";
@@ -29,9 +30,10 @@ export default function App() {
 
   const [viewMode, setViewMode] = useState<ViewMode>("bookshelf");
   const [groupBy, setGroupBy] = useState<GroupKey>("country");
+  const [timelineAxis, setTimelineAxis] = useState<TimelineAxis>("country");
   const [query, setQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
-  const [sort, setSort] = useState<SortKey>("recent");
+  const [sort, setSort] = useState<SortKey>("title");
   const [focus, setFocus] = useState<Focus | null>(null);
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -170,6 +172,14 @@ export default function App() {
           )}
         </div>
 
+        {viewMode === "timeline" && (
+          <TimelineHeader
+            books={books}
+            axis={timelineAxis}
+            onAxisChange={setTimelineAxis}
+          />
+        )}
+
         <section className="view-stage">
           {viewMode === "bookshelf" && (
             <BookshelfView
@@ -185,6 +195,7 @@ export default function App() {
           {viewMode === "timeline" && (
             <TimelineView
               books={sortedBooks}
+              axis={timelineAxis}
               visibleIds={visibleIds}
               selectedId={selectedId}
               onSelectBook={(b) => setSelectedId(b.id)}
