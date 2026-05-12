@@ -1,9 +1,9 @@
 export type ReadingStatus = "want" | "reading" | "finished";
 
 export const READING_STATUS_LABEL: Record<ReadingStatus, string> = {
-  want: "想读",
-  reading: "在读",
-  finished: "已读",
+  want: "Want",
+  reading: "Reading",
+  finished: "Finished",
 };
 
 export const READING_STATUS_OPTIONS: ReadingStatus[] = [

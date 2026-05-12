@@ -32,7 +32,7 @@ export function WorldView({
   const regions = useMemo<RegionGroup[]>(() => {
     const byCountry = new Map<string, Book[]>();
     for (const b of books) {
-      const c = b.country?.trim() || "未知";
+      const c = b.country?.trim() || "Unknown";
       const arr = byCountry.get(c) ?? [];
       arr.push(b);
       byCountry.set(c, arr);
@@ -72,8 +72,10 @@ export function WorldView({
         <div>
           <h2>Reading Across the World</h2>
           <p>
-            按地理大区组织你的藏书：共覆盖 <strong>{totalCountries}</strong>{" "}
-            个国家。颜色与书架视图保持一致。
+            Books organized by geographic region — covering{" "}
+            <strong>{totalCountries}</strong>{" "}
+            {totalCountries === 1 ? "country" : "countries"}. Colors match the
+            bookshelf view.
           </p>
         </div>
       </header>
@@ -84,7 +86,9 @@ export function WorldView({
             <header className="world__region-head">
               <h3>{r.region}</h3>
               <span className="world__region-count">
-                {r.countries.length} 国 · {r.total} 本
+                {r.countries.length}{" "}
+                {r.countries.length === 1 ? "country" : "countries"} · {r.total}{" "}
+                {r.total === 1 ? "book" : "books"}
               </span>
             </header>
             <div className="world__country-grid">
@@ -97,7 +101,8 @@ export function WorldView({
                     <div>
                       <h4 className="country-card__name">{c.country}</h4>
                       <span className="country-card__count">
-                        {c.books.length} 本
+                        {c.books.length}{" "}
+                        {c.books.length === 1 ? "book" : "books"}
                       </span>
                     </div>
                   </header>
@@ -121,7 +126,7 @@ export function WorldView({
           </section>
         ))}
         {regions.length === 0 && (
-          <p className="view__empty">没有书可显示。</p>
+          <p className="view__empty">No books to show.</p>
         )}
       </div>
     </div>

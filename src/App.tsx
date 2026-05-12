@@ -71,9 +71,12 @@ export default function App() {
     for (const b of books) {
       if (statusFilter !== "all" && b.status !== statusFilter) continue;
       if (focus) {
-        if (focus.dim === "country" && (b.country || "未知") !== focus.value)
+        if (focus.dim === "country" && (b.country || "Unknown") !== focus.value)
           continue;
-        if (focus.dim === "category" && (b.category || "未分类") !== focus.value)
+        if (
+          focus.dim === "category" &&
+          (b.category || "Uncategorized") !== focus.value
+        )
           continue;
         if (focus.dim === "decade" && decadeLabel(b.publicationYear) !== focus.value)
           continue;
@@ -101,7 +104,7 @@ export default function App() {
   const kpis = useMemo(() => heroKpis(books), [books]);
 
   const handleDelete = (book: Book) => {
-    const ok = window.confirm(`确定要从书架上删除《${book.title}》吗？`);
+    const ok = window.confirm(`Remove "${book.title}" from your shelf?`);
     if (!ok) return;
     deleteBook(book.id);
     if (selectedId === book.id) setSelectedId(null);
@@ -126,10 +129,10 @@ export default function App() {
 
   const focusLabel = focus
     ? {
-        country: "国家",
-        category: "类别",
-        decade: "年代",
-        status: "状态",
+        country: "Country",
+        category: "Category",
+        decade: "Decade",
+        status: "Status",
       }[focus.dim]
     : null;
 
@@ -158,13 +161,13 @@ export default function App() {
                 🎯
               </span>
               <span>
-                焦点：<strong>{focusLabel}</strong> = {focus.value}
+                Focus: <strong>{focusLabel}</strong> = {focus.value}
               </span>
               <button
                 type="button"
                 className="focus-chip__clear"
                 onClick={() => setFocus(null)}
-                aria-label="清除焦点"
+                aria-label="Clear focus"
               >
                 ×
               </button>
@@ -220,7 +223,7 @@ export default function App() {
       <footer className="app__footer">
         <span>
           Digital Bookshelf · COMPX532 Information Visualization · University of
-          Waikato
+          Waikato · Data saved in your browser's localStorage
         </span>
       </footer>
 

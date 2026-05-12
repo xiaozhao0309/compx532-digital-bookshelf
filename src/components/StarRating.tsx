@@ -16,7 +16,7 @@ export function StarRating({
     <div
       className="star-rating"
       role={readOnly ? "img" : "radiogroup"}
-      aria-label={`评分 ${value} / 5`}
+      aria-label={`Rating ${value} / 5`}
     >
       {stars.map((s) => {
         const active = s <= value;
@@ -31,7 +31,7 @@ export function StarRating({
             className={`star ${active ? "star--active" : ""}`}
             onClick={handleClick}
             disabled={readOnly}
-            aria-label={`${s} 星`}
+            aria-label={`${s} ${s === 1 ? "star" : "stars"}`}
             style={{ fontSize: size }}
           >
             {active ? "★" : "☆"}

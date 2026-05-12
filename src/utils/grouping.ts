@@ -4,10 +4,10 @@ import { READING_STATUS_LABEL, READING_STATUS_OPTIONS } from "../types/book";
 export type GroupKey = "country" | "decade" | "category" | "status";
 
 export const GROUPING_LABELS: Record<GroupKey, string> = {
-  country: "按作者国家",
-  decade: "按出版年代",
-  category: "按图书类别",
-  status: "按阅读状态",
+  country: "By country",
+  decade: "By decade",
+  category: "By category",
+  status: "By status",
 };
 
 export const GROUPING_ICONS: Record<GroupKey, string> = {
@@ -25,7 +25,7 @@ export interface BookGroup {
 }
 
 export function decadeLabel(year?: number): string {
-  if (!year || Number.isNaN(year)) return "年代未知";
+  if (!year || Number.isNaN(year)) return "Unknown era";
   const start = Math.floor(year / 10) * 10;
   return `${start}s`;
 }
@@ -43,16 +43,16 @@ export function groupBooks(books: Book[], by: GroupKey): BookGroup[] {
   const groups: BookGroup[] = [...map.entries()].map(([key, items]) => ({
     key,
     label: groupLabel(key, by),
-    sublabel: `${items.length} 本`,
+    sublabel: `${items.length} books`,
     books: [...items].sort((a, b) =>
-      a.title.localeCompare(b.title, "zh-Hans-CN"),
+      a.title.localeCompare(b.title, "en"),
     ),
   }));
 
   if (by === "decade") {
     groups.sort((a, b) => {
-      if (a.key === "年代未知") return 1;
-      if (b.key === "年代未知") return -1;
+      if (a.key === "Unknown era") return 1;
+      if (b.key === "Unknown era") return -1;
       return a.key.localeCompare(b.key);
     });
   } else if (by === "status") {
@@ -72,11 +72,11 @@ export function groupBooks(books: Book[], by: GroupKey): BookGroup[] {
 function groupKey(book: Book, by: GroupKey): string {
   switch (by) {
     case "country":
-      return book.country?.trim() || "未知";
+      return book.country?.trim() || "Unknown";
     case "decade":
       return decadeLabel(book.publicationYear);
     case "category":
-      return book.category?.trim() || "未分类";
+      return book.category?.trim() || "Uncategorized";
     case "status":
       return book.status;
   }

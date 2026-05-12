@@ -18,18 +18,18 @@ function countBy<T>(items: T[], keyFn: (t: T) => string): CountEntry[] {
 }
 
 export function countriesOf(books: Book[]): CountEntry[] {
-  return countBy(books, (b) => b.country?.trim() || "未知");
+  return countBy(books, (b) => b.country?.trim() || "Unknown");
 }
 
 export function categoriesOf(books: Book[]): CountEntry[] {
-  return countBy(books, (b) => b.category?.trim() || "未分类");
+  return countBy(books, (b) => b.category?.trim() || "Uncategorized");
 }
 
 export function decadesOf(books: Book[]): CountEntry[] {
   const entries = countBy(books, (b) => decadeLabel(b.publicationYear));
   return entries.sort((a, b) => {
-    if (a.key === "年代未知") return 1;
-    if (b.key === "年代未知") return -1;
+    if (a.key === "Unknown era") return 1;
+    if (b.key === "Unknown era") return -1;
     return a.key.localeCompare(b.key);
   });
 }
@@ -54,7 +54,7 @@ export interface HeroKpis {
 export function heroKpis(books: Book[]): HeroKpis {
   const total = books.length;
   const countries = new Set(
-    books.map((b) => b.country?.trim() || "未知"),
+    books.map((b) => b.country?.trim() || "Unknown"),
   ).size;
   const years = books
     .map((b) => b.publicationYear)

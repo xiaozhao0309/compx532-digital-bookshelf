@@ -35,22 +35,22 @@ export function ShelfControls({
             type="search"
             value={query}
             onChange={(e) => onQueryChange(e.target.value)}
-            placeholder="🔍 搜索书名、作者、国家、类别或笔记…"
+            placeholder="🔍 Search title, author, country, category, or notes…"
           />
         </div>
         <button type="button" className="btn btn--primary" onClick={onAdd}>
-          + 添加新书
+          + Add book
         </button>
       </div>
 
       <div className="shelf-controls__row shelf-controls__row--secondary">
-        <div className="pill-group" role="tablist" aria-label="按状态筛选">
+        <div className="pill-group" role="tablist" aria-label="Filter by status">
           <button
             type="button"
             className={`pill ${status === "all" ? "pill--active" : ""}`}
             onClick={() => onStatusChange("all")}
           >
-            全部
+            All
           </button>
           {READING_STATUS_OPTIONS.map((s) => (
             <button
@@ -65,20 +65,20 @@ export function ShelfControls({
         </div>
 
         <label className="shelf-controls__select">
-          <span className="visually-hidden">排序</span>
+          <span className="visually-hidden">Sort</span>
           <select
             value={sort}
             onChange={(e) => onSortChange(e.target.value as SortKey)}
           >
-            <option value="recent">排序：最近更新</option>
-            <option value="title">排序：书名</option>
-            <option value="rating">排序：评分</option>
-            <option value="year">排序：出版年</option>
+            <option value="title">Sort: Title(A-Z)</option>
+            <option value="recent">Sort: Recently updated</option>
+            <option value="rating">Sort: Rating</option>
+            <option value="year">Sort: Publication year</option>
           </select>
         </label>
 
         <span className="shelf-controls__summary">
-          显示 <strong>{visibleCount}</strong> / {totalCount} 本
+          Showing <strong>{visibleCount}</strong> / {totalCount}
         </span>
       </div>
     </div>

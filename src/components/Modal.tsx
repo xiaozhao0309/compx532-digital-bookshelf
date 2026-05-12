@@ -41,7 +41,7 @@ export function Modal({ open, onClose, children, labelledBy }: ModalProps) {
           type="button"
           className="modal__close"
           onClick={onClose}
-          aria-label="关闭"
+          aria-label="Close"
         >
           ×
         </button>

@@ -1,12 +1,13 @@
 import type { Book } from "../types/book";
 import { SAMPLE_BOOKS } from "../data/sampleBooks";
 
-const STORAGE_KEY = "digital-bookshelf:books:v5";
+const STORAGE_KEY = "digital-bookshelf:books:v6";
 const LEGACY_KEYS = [
   "digital-bookshelf:books:v1",
   "digital-bookshelf:books:v2",
   "digital-bookshelf:books:v3",
   "digital-bookshelf:books:v4",
+  "digital-bookshelf:books:v5",
 ];
 
 const DAY = 86_400_000;
@@ -37,7 +38,7 @@ export function generateId(): string {
 
 function migrateBook(raw: Partial<Book>): Book {
   return {
-    country: "未知",
+    country: "Unknown",
     publicationYear: undefined,
     coverUrl: undefined,
     totalPages: undefined,
@@ -45,7 +46,7 @@ function migrateBook(raw: Partial<Book>): Book {
     rating: 0,
     notes: "",
     status: "want",
-    category: "未分类",
+    category: "Uncategorized",
     author: "",
     title: "",
     id: generateId(),

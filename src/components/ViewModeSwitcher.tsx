@@ -8,10 +8,30 @@ interface ViewModeOption {
 }
 
 const OPTIONS: ViewModeOption[] = [
-  { key: "bookshelf", icon: "📚", label: "Bookshelf", hint: "按维度重组实体书架" },
-  { key: "timeline", icon: "📅", label: "Timeline", hint: "横轴出版年的时间分布" },
-  { key: "statistics", icon: "📊", label: "Statistics", hint: "六张图表的数据全景" },
-  { key: "world", icon: "🌍", label: "World", hint: "按地区/国家组织的藏书" },
+  {
+    key: "bookshelf",
+    icon: "📚",
+    label: "Bookshelf",
+    hint: "Reorganize the physical shelves",
+  },
+  {
+    key: "timeline",
+    icon: "📅",
+    label: "Timeline",
+    hint: "Books across publication years",
+  },
+  {
+    key: "statistics",
+    icon: "📊",
+    label: "Statistics",
+    hint: "Six charts of your collection",
+  },
+  {
+    key: "world",
+    icon: "🌍",
+    label: "World",
+    hint: "Books grouped by region & country",
+  },
 ];
 
 interface ViewModeSwitcherProps {
@@ -21,7 +41,7 @@ interface ViewModeSwitcherProps {
 
 export function ViewModeSwitcher({ value, onChange }: ViewModeSwitcherProps) {
   return (
-    <nav className="view-switcher" aria-label="可视化视图切换">
+    <nav className="view-switcher" aria-label="Visualization view switcher">
       {OPTIONS.map((opt) => {
         const active = opt.key === value;
         return (

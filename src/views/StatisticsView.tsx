@@ -40,39 +40,40 @@ export function StatisticsView({ books, focus, onFocus }: StatisticsViewProps) {
         <div>
           <h2>Collection Statistics</h2>
           <p>
-            点击任一条目高亮全局对应图书；再次点击或点顶部 × 可清除焦点。
+            Click any entry to highlight matching books across all views. Click
+            again, or use the × in the top chip, to clear the focus.
           </p>
         </div>
       </header>
 
       <div className="stats-grid">
         <article className="stats-card stats-card--span-2">
-          <h3>国家分布</h3>
-          <p className="stats-card__sub">Top 10 by count · 颜色 = 国家</p>
+          <h3>Countries</h3>
+          <p className="stats-card__sub">Top 10 by count · color = country</p>
           <InteractiveBars
             entries={countries.slice(0, 10)}
             getColor={(key) => colorForCountry(key)}
             isActive={(key) => focus?.dim === "country" && focus.value === key}
             onClick={(key) => toggle("country", key)}
-            unit="本"
+            unit="books"
           />
         </article>
 
         <article className="stats-card stats-card--span-2">
-          <h3>类别数量</h3>
+          <h3>Categories</h3>
           <p className="stats-card__sub">Top 10 by count</p>
           <InteractiveBars
             entries={categories.slice(0, 10)}
             isActive={(key) => focus?.dim === "category" && focus.value === key}
             onClick={(key) => toggle("category", key)}
             accent="var(--accent)"
-            unit="本"
+            unit="books"
           />
         </article>
 
         <article className="stats-card stats-card--span-2">
-          <h3>出版年代趋势</h3>
-          <p className="stats-card__sub">按 10 年分桶</p>
+          <h3>Decade trend</h3>
+          <p className="stats-card__sub">Bucketed by decade</p>
           <DecadeHistogram
             entries={decades}
             isActive={(key) => focus?.dim === "decade" && focus.value === key}
@@ -81,7 +82,7 @@ export function StatisticsView({ books, focus, onFocus }: StatisticsViewProps) {
         </article>
 
         <article className="stats-card">
-          <h3>阅读状态</h3>
+          <h3>Reading status</h3>
           <p className="stats-card__sub">want / reading / finished</p>
           <BigDonut
             counts={statusCounts}
@@ -95,13 +96,13 @@ export function StatisticsView({ books, focus, onFocus }: StatisticsViewProps) {
         </article>
 
         <article className="stats-card">
-          <h3>页数分布</h3>
-          <p className="stats-card__sub">按厚度分桶</p>
+          <h3>Page-count distribution</h3>
+          <p className="stats-card__sub">Bucketed by thickness</p>
           <PagesHistogram entries={pagesBuckets} />
         </article>
 
         <article className="stats-card">
-          <h3>各状态平均评分</h3>
+          <h3>Average rating by status</h3>
           <p className="stats-card__sub">0–5 stars</p>
           <RatingBars entries={ratingByStatus} />
         </article>
@@ -128,7 +129,7 @@ function InteractiveBars({
   unit = "",
 }: BarProps) {
   const max = entries.reduce((m, e) => Math.max(m, e.count), 0) || 1;
-  if (entries.length === 0) return <p className="stats-card__empty">暂无数据</p>;
+  if (entries.length === 0) return <p className="stats-card__empty">No data</p>;
   return (
     <ul className="ibars">
       {entries.map((e) => {
@@ -171,9 +172,9 @@ interface DecadeProps {
 }
 
 function DecadeHistogram({ entries, isActive, onClick }: DecadeProps) {
-  const datedEntries = entries.filter((e) => e.key !== "年代未知");
+  const datedEntries = entries.filter((e) => e.key !== "Unknown era");
   if (datedEntries.length === 0)
-    return <p className="stats-card__empty">暂无数据</p>;
+    return <p className="stats-card__empty">No data</p>;
 
   const decades: CountEntry[] = [];
   const decadeNums = datedEntries
@@ -203,7 +204,7 @@ function DecadeHistogram({ entries, isActive, onClick }: DecadeProps) {
             }`}
             onClick={() => onClick(e.key)}
             aria-pressed={active}
-            title={`${e.key}：${e.count} 本`}
+            title={`${e.key}: ${e.count} ${e.count === 1 ? "book" : "books"}`}
           >
             <span className="decade-hist__count">{e.count || ""}</span>
             <span
@@ -243,7 +244,7 @@ function BigDonut({ counts, activeStatus, onClick }: DonutProps) {
     return seg;
   });
 
-  if (total === 0) return <p className="stats-card__empty">暂无数据</p>;
+  if (total === 0) return <p className="stats-card__empty">No data</p>;
 
   return (
     <div className="big-donut">
@@ -331,7 +332,7 @@ function buildPagesBuckets(books: Book[]): CountEntry[] {
     { key: "400–599", count: 0 },
     { key: "600–999", count: 0 },
     { key: "1000+", count: 0 },
-    { key: "未知", count: 0 },
+    { key: "Unknown", count: 0 },
   ];
   for (const b of books) {
     const p = b.totalPages;
@@ -343,6 +344,10 @@ function buildPagesBuckets(books: Book[]): CountEntry[] {
     else buckets[4].count++;
   }
   return buckets;
+}
+
+function localizeBucket(key: string): string {
+  return key;
 }
 
 function PagesHistogram({ entries }: { entries: CountEntry[] }) {
@@ -360,7 +365,7 @@ function PagesHistogram({ entries }: { entries: CountEntry[] }) {
                 "linear-gradient(180deg, var(--primary) 0%, var(--wood) 100%)",
             }}
           />
-          <span className="decade-hist__label">{e.key}</span>
+          <span className="decade-hist__label">{localizeBucket(e.key)}</span>
         </div>
       ))}
     </div>
@@ -407,7 +412,7 @@ function RatingBars({ entries }: { entries: RatingEntry[] }) {
           </span>
           <span className="rating-bars__count">
             {e.avg ? e.avg.toFixed(1) : "—"}{" "}
-            <small>({e.count})</small>
+            <small>({e.count} rated)</small>
           </span>
         </li>
       ))}

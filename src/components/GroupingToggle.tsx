@@ -10,7 +10,7 @@ const OPTIONS: GroupKey[] = ["country", "decade", "category", "status"];
 
 export function GroupingToggle({ value, onChange }: GroupingToggleProps) {
   return (
-    <div className="grouping-toggle" role="tablist" aria-label="书架分组方式">
+    <div className="grouping-toggle" role="tablist" aria-label="Shelf grouping">
       <span className="grouping-toggle__caption">Organise shelves by</span>
       <div className="grouping-toggle__pills">
         {OPTIONS.map((key) => {

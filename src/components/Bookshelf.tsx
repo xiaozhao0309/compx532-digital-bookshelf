@@ -23,7 +23,7 @@ export function Bookshelf({
   if (groups.length === 0) {
     return (
       <div className="bookshelf-empty">
-        <p>书架空空如也，请先添加一本书。</p>
+        <p>The bookshelf is empty. Add a book to get started.</p>
       </div>
     );
   }
@@ -89,8 +89,8 @@ function ShelfSection({
         <div className="shelf__head-right">
           <span className="shelf__count">
             {visibleCount === total
-              ? `${total} 本`
-              : `${visibleCount} / ${total} 本`}
+              ? `${total} ${total === 1 ? "book" : "books"}`
+              : `${visibleCount} / ${total} books`}
           </span>
           {hasOverflow && (
             <button
@@ -98,11 +98,11 @@ function ShelfSection({
               className="shelf__toggle"
               onClick={() => setExpanded((v) => !v)}
               aria-expanded={expanded}
-              title={expanded ? "收起到一层" : "展开为多层书架"}
+              title={
+                expanded ? "Collapse to one shelf" : "Expand to multiple shelves"
+              }
             >
-              {expanded
-                ? "收起 ↑"
-                : `展示全部 (+${hiddenCount}) ↓`}
+              {expanded ? "Collapse ↑" : `Show all (+${hiddenCount}) ↓`}
             </button>
           )}
         </div>

@@ -95,8 +95,8 @@ export function BookDetailDrawer({
               type="button"
               className="drawer__icon-btn"
               onClick={() => onEdit(book)}
-              aria-label="编辑"
-              title="编辑全部字段"
+              aria-label="Edit"
+              title="Edit all fields"
             >
               ✎
             </button>
@@ -104,8 +104,8 @@ export function BookDetailDrawer({
               type="button"
               className="drawer__icon-btn"
               onClick={() => onDelete(book)}
-              aria-label="删除"
-              title="从书架移除"
+              aria-label="Delete"
+              title="Remove from shelf"
             >
               🗑
             </button>
@@ -113,8 +113,8 @@ export function BookDetailDrawer({
               type="button"
               className="drawer__icon-btn"
               onClick={onClose}
-              aria-label="关闭"
-              title="关闭"
+              aria-label="Close"
+              title="Close"
             >
               ×
             </button>
@@ -124,13 +124,13 @@ export function BookDetailDrawer({
             {flag}
           </span>
           <span className="drawer__category-chip">
-            {book.category || "未分类"}
+            {book.category || "Uncategorized"}
           </span>
           <h2 id="drawer-title" className="drawer__title">
             {book.title}
           </h2>
           <p className="drawer__author">
-            {book.author || "未知作者"}
+            {book.author || "Unknown author"}
             {book.publicationYear && (
               <>
                 {" · "}
@@ -144,14 +144,14 @@ export function BookDetailDrawer({
           <section className="drawer__section">
             <h3 className="drawer__section-title">At a glance</h3>
             <dl className="drawer__facts">
-              <Fact label="国家" value={book.country || "—"} />
+              <Fact label="Country" value={book.country || "—"} />
               <Fact
-                label="出版年"
+                label="Pub. year"
                 value={book.publicationYear ? String(book.publicationYear) : "—"}
               />
-              <Fact label="状态" value={READING_STATUS_LABEL[book.status]} />
+              <Fact label="Status" value={READING_STATUS_LABEL[book.status]} />
               <Fact
-                label="页数"
+                label="Pages"
                 value={book.totalPages ? `${book.totalPages}` : "—"}
               />
             </dl>
@@ -159,26 +159,23 @@ export function BookDetailDrawer({
 
           {context && (
             <section className="drawer__section">
-              <h3 className="drawer__section-title">
-                In your collection
-              </h3>
+              <h3 className="drawer__section-title">In your collection</h3>
               <ul className="drawer__context">
                 <li>
-                  <strong>{context.countryRank}</strong>
-                  <span>
-                    {book.country} 第 {context.countryRank} 本
-                    （共 {context.countryTotal} 本）
-                  </span>
+                  <strong>
+                    {context.countryRank}/{context.countryTotal}
+                  </strong>
+                  <span>by year, from {book.country}</span>
                 </li>
                 <li>
                   <strong>{context.decadeTotal}</strong>
                   <span>
-                    {decadeLabel(book.publicationYear)} 年代藏书
+                    in {decadeLabel(book.publicationYear)}
                   </span>
                 </li>
                 <li>
                   <strong>{context.categoryTotal}</strong>
-                  <span>「{book.category || "未分类"}」类藏书</span>
+                  <span>in {book.category || "Uncategorized"}</span>
                 </li>
               </ul>
             </section>
@@ -186,9 +183,7 @@ export function BookDetailDrawer({
 
           {yearPosition !== null && (
             <section className="drawer__section">
-              <h3 className="drawer__section-title">
-                Year position
-              </h3>
+              <h3 className="drawer__section-title">Year position</h3>
               <div className="drawer__year-bar">
                 <span className="drawer__year-edge">{yearRange.min}</span>
                 <div className="drawer__year-track">
@@ -208,7 +203,7 @@ export function BookDetailDrawer({
               <h3 className="drawer__section-title">Reading progress</h3>
               <div className="drawer__progress-head">
                 <span>
-                  {book.currentPage ?? 0} / {book.totalPages} 页
+                  {book.currentPage ?? 0} / {book.totalPages} pages
                 </span>
                 <strong>{progress}%</strong>
               </div>
@@ -241,7 +236,7 @@ export function BookDetailDrawer({
                 value={book.notes}
                 onChange={(e) => onNotesChange(book, e.target.value)}
                 rows={5}
-                placeholder="写下你的想法、引文或摘抄……"
+                placeholder="Write your thoughts, quotes, or excerpts…"
               />
             </div>
           </section>

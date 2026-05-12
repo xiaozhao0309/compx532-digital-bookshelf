@@ -74,28 +74,29 @@ export function TimelineHeader({
         <div>
           <h2>Publication Timeline</h2>
           <p>
-            横轴为出版年代（{decadeMin}–{decadeMax}）；每行为一个
-            {axis === "country" ? "国家" : "类别"}。鼠标悬停轴线可查看精确年份。
+            X-axis is publication year ({decadeMin}–{decadeMax}); each row is
+            one {axis === "country" ? "country" : "category"}. Hover over the
+            axis for the exact year.
           </p>
         </div>
         <div
           className="view__axis-toggle"
           role="tablist"
-          aria-label="时间线 Y 轴"
+          aria-label="Timeline Y axis"
         >
           <button
             type="button"
             className={`pill ${axis === "country" ? "pill--active" : ""}`}
             onClick={() => onAxisChange("country")}
           >
-            按国家
+            By country
           </button>
           <button
             type="button"
             className={`pill ${axis === "category" ? "pill--active" : ""}`}
             onClick={() => onAxisChange("category")}
           >
-            按类别
+            By category
           </button>
         </div>
       </div>
@@ -144,7 +145,8 @@ export function TimelineHeader({
                 </span>
                 {hover.bookCount > 0 && (
                   <span className="timeline-header__bubble-count">
-                    ± 5 年内 · {hover.bookCount} 本
+                    ± 5 yrs · {hover.bookCount}{" "}
+                    {hover.bookCount === 1 ? "book" : "books"}
                   </span>
                 )}
               </div>

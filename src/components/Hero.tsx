@@ -6,10 +6,10 @@ interface HeroProps {
 
 export function Hero({ kpis }: HeroProps) {
   const items = [
-    { label: "Books", value: kpis.total, hint: "藏书总数" },
-    { label: "Countries", value: kpis.countries, hint: "覆盖国家" },
-    { label: "Year span", value: kpis.yearSpan, hint: "年代跨度" },
-    { label: "Read", value: kpis.finishedRate, hint: "已读完成率" },
+    { label: "Books", value: kpis.total, hint: "in the collection" },
+    { label: "Countries", value: kpis.countries, hint: "represented" },
+    { label: "Year span", value: kpis.yearSpan, hint: "earliest – latest" },
+    { label: "Read", value: kpis.finishedRate, hint: "completion rate" },
   ];
 
   return (
@@ -25,11 +25,12 @@ export function Hero({ kpis }: HeroProps) {
           <strong>category</strong>, and <strong>reading status</strong>.
         </p>
         <p className="hero__hint">
-          切换下方分组维度，书架会重新排列；点击任意书脊查看详情。
+          Toggle the grouping dimension below to reorganize the shelves; click
+          any book spine for details.
         </p>
       </div>
 
-      <ul className="hero__kpis" aria-label="关键指标">
+      <ul className="hero__kpis" aria-label="Key metrics">
         {items.map((it) => (
           <li key={it.label} className="kpi-card">
             <span className="kpi-card__value">{it.value}</span>

@@ -59,14 +59,14 @@ export function BookSpine({
       onClick={() => onSelect(book)}
       aria-label={`${book.title} · ${book.author} · ${yearTag}`}
       aria-pressed={selected}
-      title={`${book.title} — ${book.author}（${book.country || "未知"}，${yearTag}）`}
+      title={`${book.title} — ${book.author} (${book.country || "Unknown"}, ${yearTag})`}
     >
       <span className="book-spine__accent" aria-hidden="true" />
 
       {book.rating > 0 && !compact && (
         <span
           className="book-spine__rating"
-          aria-label={`评分 ${book.rating} / 5`}
+          aria-label={`Rating ${book.rating} / 5`}
         >
           {Array.from({ length: 5 }, (_, i) => (
             <span

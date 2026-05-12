@@ -37,7 +37,9 @@ export function TimelineView({
     const byKey = new Map<string, Book[]>();
     for (const b of dated) {
       const key =
-        axis === "country" ? b.country || "未知" : b.category || "未分类";
+        axis === "country"
+          ? b.country || "Unknown"
+          : b.category || "Uncategorized";
       const arr = byKey.get(key) ?? [];
       arr.push(b);
       byKey.set(key, arr);
@@ -61,7 +63,9 @@ export function TimelineView({
       <div className="timeline">
         <div className="timeline__rows">
           {rows.length === 0 && (
-            <p className="view__empty">没有可显示的图书（缺少出版年）。</p>
+            <p className="view__empty">
+              No books with a known publication year to display.
+            </p>
           )}
           {rows.map((row) => (
             <div className="timeline__row" key={row.key}>
@@ -107,7 +111,8 @@ export function TimelineView({
 
         {undatedCount > 0 && (
           <p className="timeline__caveat">
-            注：{undatedCount} 本图书因缺少出版年未显示在时间线上。
+            Note: {undatedCount} {undatedCount === 1 ? "book is" : "books are"}{" "}
+            not shown on the timeline because of a missing publication year.
           </p>
         )}
       </div>

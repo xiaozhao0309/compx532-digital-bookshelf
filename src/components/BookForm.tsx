@@ -76,7 +76,7 @@ export function BookForm({ initial, onSubmit, onCancel }: BookFormProps) {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!draft.title.trim()) {
-      setError("书名不能为空");
+      setError("Title is required.");
       return;
     }
     if (
@@ -84,14 +84,14 @@ export function BookForm({ initial, onSubmit, onCancel }: BookFormProps) {
       draft.currentPage != null &&
       draft.currentPage > draft.totalPages
     ) {
-      setError("当前页数不能超过总页数");
+      setError("Current page cannot exceed total pages.");
       return;
     }
     if (
       draft.publicationYear != null &&
       (draft.publicationYear < 0 || draft.publicationYear > 9999)
     ) {
-      setError("请输入有效的出版年份");
+      setError("Please enter a valid publication year.");
       return;
     }
     setError(null);
@@ -99,8 +99,8 @@ export function BookForm({ initial, onSubmit, onCancel }: BookFormProps) {
       ...draft,
       title: draft.title.trim(),
       author: draft.author.trim(),
-      country: draft.country.trim() || "未知",
-      category: draft.category.trim() || "未分类",
+      country: draft.country.trim() || "Unknown",
+      category: draft.category.trim() || "Uncategorized",
       coverUrl: draft.coverUrl?.trim() || undefined,
       notes: draft.notes.trim(),
     });
@@ -109,53 +109,53 @@ export function BookForm({ initial, onSubmit, onCancel }: BookFormProps) {
   return (
     <form className="book-form" onSubmit={handleSubmit}>
       <h2 className="book-form__title">
-        {initial ? "编辑图书" : "添加新书"}
+        {initial ? "Edit book" : "Add a new book"}
       </h2>
 
       <div className="form-grid">
         <label className="form-field form-field--span-2">
-          <span>书名 *</span>
+          <span>Title *</span>
           <input
             type="text"
             value={draft.title}
             onChange={(e) => update("title", e.target.value)}
             required
-            placeholder="例如：百年孤独"
+            placeholder="e.g. One Hundred Years of Solitude"
           />
         </label>
 
         <label className="form-field">
-          <span>作者</span>
+          <span>Author</span>
           <input
             type="text"
             value={draft.author}
             onChange={(e) => update("author", e.target.value)}
-            placeholder="例如：马尔克斯"
+            placeholder="e.g. Gabriel García Márquez"
           />
         </label>
 
         <label className="form-field">
-          <span>作者国家</span>
+          <span>Author's country</span>
           <input
             type="text"
             value={draft.country}
             onChange={(e) => update("country", e.target.value)}
-            placeholder="例如：哥伦比亚"
+            placeholder="e.g. Colombia"
           />
         </label>
 
         <label className="form-field">
-          <span>类别</span>
+          <span>Category</span>
           <input
             type="text"
             value={draft.category}
             onChange={(e) => update("category", e.target.value)}
-            placeholder="例如：魔幻现实主义"
+            placeholder="e.g. Magical Realism"
           />
         </label>
 
         <label className="form-field">
-          <span>出版年份</span>
+          <span>Publication year</span>
           <input
             type="number"
             min={0}
@@ -167,12 +167,12 @@ export function BookForm({ initial, onSubmit, onCancel }: BookFormProps) {
                 e.target.value === "" ? undefined : Number(e.target.value),
               )
             }
-            placeholder="例如：1967"
+            placeholder="e.g. 1967"
           />
         </label>
 
         <label className="form-field form-field--span-2">
-          <span>封面图片链接（可选）</span>
+          <span>Cover image URL (optional)</span>
           <input
             type="url"
             value={draft.coverUrl ?? ""}
@@ -182,7 +182,7 @@ export function BookForm({ initial, onSubmit, onCancel }: BookFormProps) {
         </label>
 
         <label className="form-field">
-          <span>总页数</span>
+          <span>Total pages</span>
           <input
             type="number"
             min={0}
@@ -198,7 +198,7 @@ export function BookForm({ initial, onSubmit, onCancel }: BookFormProps) {
         </label>
 
         <label className="form-field">
-          <span>当前阅读进度（页）</span>
+          <span>Current page</span>
           <input
             type="number"
             min={0}
@@ -209,7 +209,7 @@ export function BookForm({ initial, onSubmit, onCancel }: BookFormProps) {
         </label>
 
         <fieldset className="form-field form-field--span-2 form-field--inline">
-          <legend>阅读状态</legend>
+          <legend>Reading status</legend>
           <div className="status-pills">
             {READING_STATUS_OPTIONS.map((s) => (
               <button
@@ -225,7 +225,7 @@ export function BookForm({ initial, onSubmit, onCancel }: BookFormProps) {
         </fieldset>
 
         <div className="form-field form-field--span-2">
-          <span>评分</span>
+          <span>Rating</span>
           <StarRating
             value={draft.rating}
             onChange={(v) => update("rating", v)}
@@ -234,12 +234,12 @@ export function BookForm({ initial, onSubmit, onCancel }: BookFormProps) {
         </div>
 
         <label className="form-field form-field--span-2">
-          <span>读书笔记</span>
+          <span>Notes</span>
           <textarea
             value={draft.notes}
             onChange={(e) => update("notes", e.target.value)}
             rows={4}
-            placeholder="记录你的想法、引文或摘抄……"
+            placeholder="Write your thoughts, quotes, or excerpts…"
           />
         </label>
       </div>
@@ -248,10 +248,10 @@ export function BookForm({ initial, onSubmit, onCancel }: BookFormProps) {
 
       <div className="form-actions">
         <button type="button" className="btn btn--ghost" onClick={onCancel}>
-          取消
+          Cancel
         </button>
         <button type="submit" className="btn btn--primary">
-          {initial ? "保存修改" : "添加到书架"}
+          {initial ? "Save changes" : "Add to shelf"}
         </button>
       </div>
     </form>
